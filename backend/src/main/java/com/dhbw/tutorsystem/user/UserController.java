@@ -41,4 +41,30 @@ public class UserController {
         return new ResponseEntity<List<UserWithEmailAndNameAndId>>(
                 UserWithEmailAndNameAndId.convertToDto(modelMapper, users), HttpStatus.OK);
     }
+
+	@Operation(summary = "Get Students", tags = {
+			"users" }, description = "Get all students", security = @SecurityRequirement(name = "jwt-auth"))
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "All students are returned."),
+	})
+	@GetMapping("/students")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<List<UserWithEmailAndNameAndId>> getAllStudents() {
+	List<User> users = userRepository.findAllStudents();
+	return new ResponseEntity<List<UserWithEmailAndNameAndId>>(
+			UserWithEmailAndNameAndId.convertToDto(modelMapper, users), HttpStatus.OK);
+	}
+
+	@Operation(summary = "Get Directors", tags = {
+		"users" }, description = "Get all directors", security = @SecurityRequirement(name = "jwt-auth"))
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "All directors are returned."),
+	})
+	@GetMapping("/directors")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public ResponseEntity<List<UserWithEmailAndNameAndId>> getAllDirectors() {
+	List<User> users = userRepository.findAllDirectors();
+	return new ResponseEntity<List<UserWithEmailAndNameAndId>>(
+			UserWithEmailAndNameAndId.convertToDto(modelMapper, users), HttpStatus.OK);
+	}
 }

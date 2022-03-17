@@ -14,9 +14,15 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     boolean existsByFirstNameAndLastName(String firstname, String lastname);
 
+    boolean existsByIdIn(Set<Integer> ids);
+
     @Query("SELECT u from  User u inner join u.roles ur where not ur.name = 'ROLE_ADMIN' ")
     List<User> findAllUsersThatAreNotAdmin();
 
-    boolean existsByIdIn(Set<Integer> ids);
+    @Query("SELECT u FROM User u INNER JOIN u.roles ur WHERE ur.name = 'ROLE_STUDENT'")
+    List<User> findAllStudents();
+
+    @Query("SELECT u FROM User u INNER JOIN u.roles ur WHERE ur.name = 'ROLE_DIRECTOR'")
+    List<User> findAllDirectors();
 
 }

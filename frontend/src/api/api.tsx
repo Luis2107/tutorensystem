@@ -225,6 +225,16 @@ export const getUsersWithNameAndMailAndId = (): Promise<UserWithMailAndNameAndId
         .then(res => res.data);
 }
 
+export const getStudentsWithNameAndMailAndId = (): Promise<UserWithMailAndNameAndId[]> => {
+    return api.get('/users/students')
+        .then(res => res.data);
+}
+
+export const getDirectorsWithNameAndMailAndId = (): Promise<UserWithMailAndNameAndId[]> => {
+    return api.get('/users/directors')
+        .then(res => res.data);
+}
+
 export const putTutorial = (newTutorial: Object): Promise<number> => {
     return api.put('/tutorials', newTutorial)
         .then(res => {
